@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension name="%extension.name"
+         id="application"
+         point="org.eclipse.core.runtime.applications">
+      <application>
+         <run
+               class="com.ddlab.rcp.core.VxRailApplication">
+         </run>
+      </application>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectives">
+      <perspective
+            class="com.ddlab.rcp.core.Perspective"
+            name="%perspective.name"
+            id="vxraildemo3.perspective">
+      </perspective>
+   </extension>
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            allowMultiple="true" 
+            icon="icons/sample2.gif"
+            class="com.ddlab.rcp.core.View"
+            name="%view.name"
+            id="vxraildemo1.view">
+      </view>
+      <view
+            allowMultiple="true" 
+            icon="icons/sample3.gif"
+            class="com.ddlab.rcp.views.NavigationView"
+            name="%view.name.nav"
+            id="vxraildemo1.navigationView">
+      </view>
+      
+      <!--
+      <view
+            allowMultiple="true" restorable="false"
+            icon="icons/SysInfo16.png"
+            class="com.ddlab.rcp.views.SystemInformationView"
+            name="%view.name.sysinfo"
+            id="sysInfoView">
+      </view>
+      <view
+            allowMultiple="true" restorable="false"
+            icon="icons/NetworkService16.png"
+            class="com.ddlab.rcp.views.NetworkServiceView"
+            name="%view.name.netservice"
+            id="networkServiceView">
+      </view>
+      <view
+            allowMultiple="true" restorable="false"
+            icon="icons/Validation16.png"
+            class="com.ddlab.rcp.views.ValidationView"
+            name="Validation"
+            id="validationview">
+      </view>
+      -->
+      
+      
+      
+      
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <category
+            id="vxraildemo3.category"
+            name="vxraildemo3">
+      </category>
+      <command
+            description="Opens "
+            name="Open"
+            id="vxraildemo3.open"
+            categoryId="vxraildemo3.category">
+      </command>
+      <command
+            description="Open a message dialog"
+            name="Open Message Dialog"
+            id="vxraildemo3.openMessage"
+            categoryId="vxraildemo3.category">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.bindings">
+      <key
+            commandId="vxraildemo3.open"
+            sequence="CTRL+SHIFT+O"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration">
+      </key>
+      <key
+            commandId="vxraildemo3.openMessage"
+            sequence="CTRL+SHIFT+M"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration">
+      </key>
+      <key
+            commandId="org.eclipse.ui.file.exit"
+            sequence="CTRL+SHIFT+Q"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration">
+      </key>
+   </extension>
+   <extension
+         id="product"
+         point="org.eclipse.core.runtime.products">
+      <product
+            name="vxraildemo3"
+            application="vxraildemo3.application">
+         <property
+               name="aboutText"
+               value="VxRail Proptotype created by Debadatta Mishra (DD)">
+         </property>
+         <property
+               name="windowImages"
+               value="icons/mainicon24.png">
+         </property>
+         <property
+               name="aboutImage"
+               value="dellemc1.gif">
+         </property>
+         <property
+               name="appName"
+               value="vxraildemo3">
+         </property>
+      </product>
+   </extension>
+   
+   <extension
+      point="org.eclipse.ui.views">
+   <view
+         name="Progress View" restorable="false"
+         icon="icons/sample2.gif"
+         category="org.eclipse.ui"
+         class="org.eclipse.ui.ExtensionFactory:progressView"
+         id="org.eclipse.ui.views.ProgressView">
+   </view>
+</extension>
+
+<extension
+         point="org.eclipse.ui.editors">
+      <editor
+            name="VxRail" 
+            default="true"
+            icon="icons/vxrail16.png"
+            class="com.ddlab.rcp.multi.editor.VxRailMultiPageEditor"
+            id="vxRailMultiPageID">
+      </editor>
+      
+   </extension>
+
+</plugin>

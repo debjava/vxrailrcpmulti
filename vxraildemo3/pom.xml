@@ -1,0 +1,18 @@
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>vxraildemo3</groupId>
+	<artifactId>vxraildemo3</artifactId>
+	<version>1.0.0</version>
+	<name>vxraildemo3</name>
+	<url>http://maven.apache.org</url>
+	<packaging>eclipse-plugin</packaging>
+
+	<parent>
+		<artifactId>vxrailrcpmulti</artifactId>
+		<version>1.0.0</version>
+		<groupId>vxrailrcpmulti</groupId>
+	</parent>
+</project>
