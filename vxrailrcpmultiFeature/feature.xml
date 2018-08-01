@@ -33,6 +33,12 @@
       <import plugin="org.w3c.css.sac"/>
       <import plugin="org.eclipse.ui.browser"/>
       <import plugin="org.eclipse.core.resources"/>
+      <import plugin="org.eclipse.help.ui"/>
+      <import plugin="org.eclipse.help.webapp"/>
+      <import plugin="org.eclipse.equinox.http.jetty"/>
+      <import plugin="vxrailHelp3" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.ui.intro"/>
+      <import plugin="org.eclipse.ui.intro.universal"/>
    </requires>
 
    <plugin

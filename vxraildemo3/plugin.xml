@@ -148,5 +148,37 @@
       </editor>
       
    </extension>
+   
+   
+   <!-- Introduction -->
+   <extension
+         point="org.eclipse.ui.intro">
+      <intro
+            class="org.eclipse.ui.intro.config.CustomizableIntroPart"
+            icon="icons/Intro24.png"
+            id="org.eclipse.intro.minimal"
+            label="Introduction"/>
+   </extension>
+   <extension
+         point="org.eclipse.ui.intro.config">
+      <config 
+            content="intro/introContent.xml"
+            id="org.eclipse.intro.minimal.config"
+            introId="org.eclipse.intro.minimal">
+         <presentation
+               home-page-id="root" standby-page-id="standby">
+            <implementation
+                  kind="html">
+            </implementation>
+         </presentation>
+      </config>
+   </extension>
+   <extension
+		point="org.eclipse.ui.intro">
+      <introProductBinding
+            introId="org.eclipse.intro.minimal"
+            productId="vxraildemo3.product">
+      </introProductBinding>
+    </extension>
 
 </plugin>

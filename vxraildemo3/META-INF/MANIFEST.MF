@@ -20,6 +20,8 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.help.ui,
  org.eclipse.help.webapp,
  org.eclipse.equinox.http.jetty,
+ org.eclipse.ui.intro,
+ org.eclipse.ui.intro.universal,
  vxrailHelp3;bundle-version="1.0.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Automatic-Module-Name: vxraildemo3
