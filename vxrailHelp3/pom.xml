@@ -3,10 +3,10 @@
 	xmlns="http://maven.apache.org/POM/4.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>vxraildemo3</groupId>
-	<artifactId>vxraildemo3</artifactId>
+	<groupId>vxrailHelp3</groupId>
+	<artifactId>vxrailHelp3</artifactId>
 	<version>1.0.0</version>
-	<name>vxraildemo3</name>
+	<name>vxrailHelp3</name>
 	<url>http://maven.apache.org</url>
 	<packaging>eclipse-plugin</packaging>
 
@@ -15,14 +15,4 @@
 		<version>1.0.0</version>
 		<groupId>vxrailrcpmulti</groupId>
 	</parent>
-<!-- 
-	<dependencies>
-		<dependency>
-			<groupId>vxrailHelp3</groupId>
-			<artifactId>vxrailHelp3</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-	</dependencies>
-	
- -->	
 </project>

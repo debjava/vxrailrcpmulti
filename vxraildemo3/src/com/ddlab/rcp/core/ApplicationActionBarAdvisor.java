@@ -29,6 +29,10 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
   private OpenViewAction openViewAction;
   private Action messagePopupAction;
   
+  private IWorkbenchAction showHelpAction; // NEW
+  private IWorkbenchAction searchHelpAction; // NEW
+  private IWorkbenchAction dynamicHelpAction; // NEW
+  
 //  private IWorkbenchAction introAction;
 
   public ApplicationActionBarAdvisor(IActionBarConfigurer configurer) {
@@ -60,7 +64,15 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
     
 //    introAction = ActionFactory.INTRO.create(window);
 //    register(introAction);
+    
+    showHelpAction = ActionFactory.HELP_CONTENTS.create(window); // NEW
+    register(showHelpAction); // NEW
 
+    searchHelpAction = ActionFactory.HELP_SEARCH.create(window); // NEW
+    register(searchHelpAction); // NEW
+
+    dynamicHelpAction = ActionFactory.DYNAMIC_HELP.create(window); // NEW
+    register(dynamicHelpAction); // NEW
     
   }
 
@@ -86,6 +98,10 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
     helpMenu.add(aboutAction);
     
 //    helpMenu.add(introAction);
+    
+    helpMenu.add(showHelpAction); // NEW
+    helpMenu.add(searchHelpAction); // NEW
+    helpMenu.add(dynamicHelpAction); // NEW
   }
 
   @Override

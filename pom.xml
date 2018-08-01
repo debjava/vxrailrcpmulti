@@ -76,10 +76,29 @@
 					<target>1.8</target>
 				</configuration>
 			</plugin>
+			<!-- 
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-packaging-plugin</artifactId>
+				<version>${tycho.version}</version>
+				<configuration>
+					<archive>
+						<manifestEntries>
+							<Built-By>jkiss.org</Built-By>
+							<Created-By>jkiss.org</Created-By>
+							<Build-Time>${maven.build.timestamp}</Build-Time>
+						</manifestEntries>
+						<addMavenDescriptor>false</addMavenDescriptor>
+					</archive>
+				</configuration>
+			</plugin>
+			 -->
+			
 		</plugins>
 	</build>
 
 	<modules>
+		<module>vxrailHelp3</module>
 		<module>vxraildemo3</module>
 		<module>vxrailrcpmultiFeature</module>
 		<module>vxrailrcpmultiProduct</module>
