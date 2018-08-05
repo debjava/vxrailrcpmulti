@@ -35,6 +35,13 @@
             name="%view.name.nav"
             id="vxraildemo1.navigationView">
       </view>
+      <view
+            allowMultiple="false" 
+            icon="icons/robo32.png"
+            class="com.ddlab.rcp.views.RoboBotView"
+            name="Assistant"
+            id="robobot">
+      </view>
       
       <!--
       <view

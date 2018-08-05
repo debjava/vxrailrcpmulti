@@ -5,9 +5,10 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.action.Action;
-import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 
 public class MessagePopupAction extends Action {
@@ -28,7 +29,13 @@ public class MessagePopupAction extends Action {
   public void run() {
 //    MessageDialog.openInformation(window.getShell(), "Open", "Open Message Dialog!");
     
-	  MessageDialog.openInformation(window.getShell(), "Open", "Don't tease me.");
+//	  MessageDialog.openInformation(window.getShell(), "Open", "Don't tease me.");
+	  
+	  try {
+	      window.getActivePage().showView("robobot", null, IWorkbenchPage.VIEW_ACTIVATE);
+	    } catch (PartInitException e) {
+	      e.printStackTrace();
+	    }
     
 //    show13();
   }
