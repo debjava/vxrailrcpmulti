@@ -22,7 +22,7 @@
 
    <splash
       location="vxraildemo3" />
-   <launcher>
+   <launcher name="vxraildemo">
       <win useIco="false">
          <bmp/>
       </win>

@@ -78,9 +78,9 @@ public class View extends ViewPart {
 	    + "\ndelivering a staggering 619% ROI1 over five years.";  
     Action helpAction = ActionUtil.getHelpAction(form.getShell(), helpMsg);
 
-    Action nextAction = ActionUtil.getAction(form.getShell(), new NextActionHandler());
+//    Action nextAction = ActionUtil.getAction(form.getShell(), new NextActionHandler());
 
-    form.getToolBarManager().add(nextAction);
+//    form.getToolBarManager().add(nextAction);
     form.getToolBarManager().add(helpAction);
 
     form.getToolBarManager().update(true);

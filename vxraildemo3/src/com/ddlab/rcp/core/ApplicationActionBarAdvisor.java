@@ -59,7 +59,7 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
     openViewAction = new OpenViewAction(window, "Open Another Message View", View.ID);
     register(openViewAction);
 
-    messagePopupAction = new MessagePopupAction("Open Message", window);
+    messagePopupAction = new MessagePopupAction("Open to Chat", window);
     register(messagePopupAction);
     
 //    introAction = ActionFactory.INTRO.create(window);

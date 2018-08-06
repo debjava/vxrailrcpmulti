@@ -22,7 +22,7 @@ public class MessagePopupAction extends Action {
     setId(ICommandIds.CMD_OPEN_MESSAGE);
     // Associate the action with a pre-defined command, to allow key bindings.
     setActionDefinitionId(ICommandIds.CMD_OPEN_MESSAGE);
-    setImageDescriptor(com.ddlab.rcp.core.Activator.getImageDescriptor("/icons/Hello24.png"));
+    setImageDescriptor(com.ddlab.rcp.core.Activator.getImageDescriptor("/icons/robo16.png"));
   }
 
   @Override
