@@ -3,6 +3,8 @@ package com.ddlab.rcp.multi.editor;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.resource.JFaceResources;
+import org.eclipse.nebula.widgets.opal.notifier.Notifier;
+import org.eclipse.nebula.widgets.opal.notifier.NotifierColorsFactory.NotifierTheme;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -40,258 +42,260 @@ import com.ddlab.rcp.messages.Messages;
 import com.ddlab.rcp.ui.util.ImageUtil;
 
 public class NetworkServicesPage extends FormPage {
-  private static String ID = "networkservices";
-  private static String TITLE = "Network Services";
+	private static String ID = "networkservices";
+	private static String TITLE = "Network Services";
 
-  public NetworkServicesPage(FormEditor editor, String id, String title) {
-    super(editor, id, title);
-  }
+	public NetworkServicesPage(FormEditor editor, String id, String title) {
+		super(editor, id, title);
+	}
 
-  public NetworkServicesPage(FormEditor editor) {
-    super(editor, ID, TITLE);
-  }
+	public NetworkServicesPage(FormEditor editor) {
+		super(editor, ID, TITLE);
+	}
 
-  @Override
-  protected void createFormContent(IManagedForm managedForm) {
-    ScrolledForm mainForm = managedForm.getForm();
-    mainForm.setText(TITLE);
-    FormToolkit toolkit = managedForm.getToolkit();
-    toolkit.decorateFormHeading(mainForm.getForm());
+	@Override
+	protected void createFormContent(IManagedForm managedForm) {
+		ScrolledForm mainForm = managedForm.getForm();
+		mainForm.setText(TITLE);
+		FormToolkit toolkit = managedForm.getToolkit();
+		toolkit.decorateFormHeading(mainForm.getForm());
 
-    setFormAction(mainForm.getForm());
+		setFormAction(mainForm.getForm());
 
-    Form form = mainForm.getForm();
+		Form form = mainForm.getForm();
 
-    Section section1 = createSection1(form, toolkit);
-    ToolBar bar = new ToolBar(section1, SWT.FLAT | SWT.HORIZONTAL);
-    createResetToolItem(bar);
-    section1.setTextClient(bar);
+		Section section1 = createSection1(form, toolkit);
+		ToolBar bar = new ToolBar(section1, SWT.FLAT | SWT.HORIZONTAL);
+		createResetToolItemNotify(bar);
+		section1.setTextClient(bar);
 
-    Section section2 = createSection2(form, toolkit);
-    ToolBar bar1 = new ToolBar(section2, SWT.FLAT | SWT.HORIZONTAL);
-    createResetToolItem(bar1);
-    section2.setTextClient(bar1);
-  }
+		Section section2 = createSection2(form, toolkit);
+		ToolBar bar1 = new ToolBar(section2, SWT.FLAT | SWT.HORIZONTAL);
+		createResetToolItem(bar1);
+		section2.setTextClient(bar1);
+	}
 
-  private void createResetToolItem(ToolBar toolBar) {
-    ToolItem resetItem = new ToolItem(toolBar, SWT.PUSH);
-    resetItem.setImage(
-        Activator.getImageDescriptor(Messages.SystemInformationView_refreshIcon16).createImage());
-    resetItem.setToolTipText(Messages.SystemInformationView_resetFieldMsg);
-    resetItem.addSelectionListener(
-        new SelectionAdapter() {
-          @Override
-          public void widgetSelected(SelectionEvent e) {
-            MessageDialog.openInformation(
-                new Shell(),
-                Messages.SystemInformationView_titleMsg,
-                Messages.SystemInformationView_dialogMsg);
-          }
-        });
-  }
+	private void createResetToolItem(ToolBar toolBar) {
+		ToolItem resetItem = new ToolItem(toolBar, SWT.PUSH);
+		resetItem.setImage(Activator.getImageDescriptor(Messages.SystemInformationView_refreshIcon16).createImage());
+		resetItem.setToolTipText(Messages.SystemInformationView_resetFieldMsg);
+		resetItem.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				MessageDialog.openInformation(new Shell(), Messages.SystemInformationView_titleMsg,
+						Messages.SystemInformationView_dialogMsg);
+			}
+		});
+	}
 
-  private Section createSection1(Form form, FormToolkit toolkit) {
-    Section section =
-        toolkit.createSection(form.getBody(), Section.DESCRIPTION | Section.TITLE_BAR);
-    section.setVisible(true);
-    section.setEnabled(true);
-    section.setBounds(1, 10, 365, 330);
+	private void createResetToolItemNotify(ToolBar toolBar) {
+		ToolItem resetItem = new ToolItem(toolBar, SWT.PUSH);
+		resetItem.setImage(Activator.getImageDescriptor(Messages.SystemInformationView_refreshIcon16).createImage());
+		resetItem.setToolTipText(Messages.SystemInformationView_resetFieldMsg);
+		resetItem.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				Notifier.notify("Info for you", "Some info message<br/><br/>Test message for VxRail" + "...",
+						NotifierTheme.BLUE_THEME);
+			}
+		});
+	}
 
-    section.setText("DNS");
-    section.setDescription("You can add list of DNS by clicking add and remove buttons");
-    section.setToolTipText("DNS Entries");
-    toolkit.createCompositeSeparator(section);
+	private Section createSection1(Form form, FormToolkit toolkit) {
+		Section section = toolkit.createSection(form.getBody(), Section.DESCRIPTION | Section.TITLE_BAR);
+		section.setVisible(true);
+		section.setEnabled(true);
+		section.setBounds(1, 10, 365, 330);
 
-    Composite dnsComposite = toolkit.createComposite(section, SWT.None);
-    // Create a layout of 3 columns
-    GridLayout hl = new GridLayout(3, false);
-    hl.horizontalSpacing = 10;
-    hl.verticalSpacing = 10;
-    dnsComposite.setLayout(hl);
+		section.setText("DNS");
+		section.setDescription("You can add list of DNS by clicking add and remove buttons");
+		section.setToolTipText("DNS Entries");
+		toolkit.createCompositeSeparator(section);
 
-    Font boldFont = JFaceResources.getFontRegistry().getBold(JFaceResources.DEFAULT_FONT);
-    Label l1 = new Label(dnsComposite, SWT.NONE);
-    l1.setText("Add DNS Server :");
-    l1.setFont(boldFont);
-    l1.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false));
+		Composite dnsComposite = toolkit.createComposite(section, SWT.None);
+		// Create a layout of 3 columns
+		GridLayout hl = new GridLayout(3, false);
+		hl.horizontalSpacing = 10;
+		hl.verticalSpacing = 10;
+		dnsComposite.setLayout(hl);
 
-    Text txt = new Text(dnsComposite, SWT.BORDER); // SWT.BORDER
-    txt.setText("255.255.255.255");
+		Font boldFont = JFaceResources.getFontRegistry().getBold(JFaceResources.DEFAULT_FONT);
+		Label l1 = new Label(dnsComposite, SWT.NONE);
+		l1.setText("Add DNS Server :");
+		l1.setFont(boldFont);
+		l1.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false));
 
-    //		txt.setFont(FontUtil.getFontBySize(12));
+		Text txt = new Text(dnsComposite, SWT.BORDER); // SWT.BORDER
+		txt.setText("255.255.255.255");
 
-    GridData gd = new GridData(GridData.HORIZONTAL_ALIGN_FILL);
-    gd.heightHint = 15;
-    gd.widthHint = 120;
-    gd.horizontalAlignment = SWT.FILL;
-    gd.verticalAlignment = SWT.FILL;
-    txt.setLayoutData(gd);
+		// txt.setFont(FontUtil.getFontBySize(12));
 
-    Button btn = new Button(dnsComposite, SWT.PUSH);
-    btn.setText("+");
+		GridData gd = new GridData(GridData.HORIZONTAL_ALIGN_FILL);
+		gd.heightHint = 15;
+		gd.widthHint = 120;
+		gd.horizontalAlignment = SWT.FILL;
+		gd.verticalAlignment = SWT.FILL;
+		txt.setLayoutData(gd);
 
-    GridData btnGrid = new GridData(GridData.HORIZONTAL_ALIGN_FILL);
-    btn.setLayoutData(btnGrid);
+		Button btn = new Button(dnsComposite, SWT.PUSH);
+		btn.setText("+");
 
-    Table table = new Table(dnsComposite, SWT.MULTI | SWT.FULL_SELECTION);
-    table.setHeaderVisible(false);
-    table.setLinesVisible(false);
+		GridData btnGrid = new GridData(GridData.HORIZONTAL_ALIGN_FILL);
+		btn.setLayoutData(btnGrid);
 
-    GridData tableGrid = new GridData(SWT.FILL, SWT.TOP, true, false);
-    tableGrid.horizontalSpan = 2;
-    tableGrid.heightHint = 80;
+		Table table = new Table(dnsComposite, SWT.MULTI | SWT.FULL_SELECTION);
+		table.setHeaderVisible(false);
+		table.setLinesVisible(false);
 
-    table.setLayoutData(tableGrid);
+		GridData tableGrid = new GridData(SWT.FILL, SWT.TOP, true, false);
+		tableGrid.horizontalSpan = 2;
+		tableGrid.heightHint = 80;
 
-    addMenuToTable(dnsComposite, table);
+		table.setLayoutData(tableGrid);
 
-    final TableColumn tc1 = new TableColumn(table, SWT.None);
-    final TableColumn tc2 = new TableColumn(table, SWT.None);
-    //        final TableColumn tc3 = new TableColumn(table, SWT.None);
-    tc1.setText("DNS Server Name");
-    tc2.setText("DNS IP Address");
-    //        tc3.setText("Address");
+		addMenuToTable(dnsComposite, table);
 
-    final TableItem item1 = new TableItem(table, SWT.NONE);
-    item1.setText(new String[] {"DNS Server 1", "255.255.255.255"});
-    final TableItem item2 = new TableItem(table, SWT.NONE);
-    item2.setText(new String[] {"DNS Server 2", "255.255.255.255"});
-    final TableItem item3 = new TableItem(table, SWT.NONE);
-    item3.setText(new String[] {"DNS Server 3", "255.255.255.255"});
+		final TableColumn tc1 = new TableColumn(table, SWT.None);
+		final TableColumn tc2 = new TableColumn(table, SWT.None);
+		// final TableColumn tc3 = new TableColumn(table, SWT.None);
+		tc1.setText("DNS Server Name");
+		tc2.setText("DNS IP Address");
+		// tc3.setText("Address");
 
-    btn.addSelectionListener(
-        new SelectionAdapter() {
-          @Override
-          public void widgetSelected(SelectionEvent e) {
-            TableItem item = new TableItem(table, SWT.NONE);
-            item.setText(new String[] {"DNS Server 5", "255.255.255.255"});
-          }
-        });
+		final TableItem item1 = new TableItem(table, SWT.NONE);
+		item1.setText(new String[] { "DNS Server 1", "255.255.255.255" });
+		final TableItem item2 = new TableItem(table, SWT.NONE);
+		item2.setText(new String[] { "DNS Server 2", "255.255.255.255" });
+		final TableItem item3 = new TableItem(table, SWT.NONE);
+		item3.setText(new String[] { "DNS Server 3", "255.255.255.255" });
 
-    for (int i = 0, n = table.getColumnCount(); i < n; i++) {
-      table.getColumn(i).pack();
-    }
+		btn.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				TableItem item = new TableItem(table, SWT.NONE);
+				item.setText(new String[] { "DNS Server 5", "255.255.255.255" });
+			}
+		});
 
-    section.setClient(dnsComposite); // Important
-    section.requestLayout();
+		for (int i = 0, n = table.getColumnCount(); i < n; i++) {
+			table.getColumn(i).pack();
+		}
 
-    return section;
-  }
+		section.setClient(dnsComposite); // Important
+		section.requestLayout();
 
-  private void addMenuToTable(Composite dnsComposite, Table table) {
-    Menu menu = new Menu(dnsComposite.getShell(), SWT.POP_UP);
-    table.setMenu(menu);
-    MenuItem item = new MenuItem(menu, SWT.PUSH);
-    item.setText("Delete");
-    item.setImage(ImageUtil.getImage("delete16.png"));
-    item.addListener(SWT.Selection, event -> table.remove(table.getSelectionIndices()));
-  }
+		return section;
+	}
 
-  private Section createSection2(Form form, FormToolkit toolkit) {
-    Section section =
-        toolkit.createSection(form.getBody(), Section.DESCRIPTION | Section.TITLE_BAR);
-    section.setVisible(true);
-    section.setEnabled(true);
-    section.setBounds(375, 10, 365, 230);
+	private void addMenuToTable(Composite dnsComposite, Table table) {
+		Menu menu = new Menu(dnsComposite.getShell(), SWT.POP_UP);
+		table.setMenu(menu);
+		MenuItem item = new MenuItem(menu, SWT.PUSH);
+		item.setText("Delete");
+		item.setImage(ImageUtil.getImage("delete16.png"));
+		item.addListener(SWT.Selection, event -> table.remove(table.getSelectionIndices()));
+	}
 
-    section.setText("NTP");
-    section.setDescription("Add the IP addresses for NTP");
-    section.setToolTipText("NTP");
-    toolkit.createCompositeSeparator(section);
+	private Section createSection2(Form form, FormToolkit toolkit) {
+		Section section = toolkit.createSection(form.getBody(), Section.DESCRIPTION | Section.TITLE_BAR);
+		section.setVisible(true);
+		section.setEnabled(true);
+		section.setBounds(375, 10, 365, 230);
 
-    GridLayout layout = new GridLayout(1, true);
-    GridData gd_composite = new GridData(SWT.LEFT, SWT.BEGINNING, true, false, 1, 1);
-    section.setLayoutData(gd_composite);
-    section.setLayout(layout);
+		section.setText("NTP");
+		section.setDescription("Add the IP addresses for NTP");
+		section.setToolTipText("NTP");
+		toolkit.createCompositeSeparator(section);
 
-    Composite ntpComposite = toolkit.createComposite(section, SWT.None);
-    // Create a layout of 3 columns
-    GridLayout hl = new GridLayout(3, false);
-    hl.horizontalSpacing = 10;
-    hl.verticalSpacing = 10;
-    ntpComposite.setLayout(hl);
+		GridLayout layout = new GridLayout(1, true);
+		GridData gd_composite = new GridData(SWT.LEFT, SWT.BEGINNING, true, false, 1, 1);
+		section.setLayoutData(gd_composite);
+		section.setLayout(layout);
 
-    Font boldFont = JFaceResources.getFontRegistry().getBold(JFaceResources.DEFAULT_FONT);
-    Label l1 = new Label(ntpComposite, SWT.NONE);
-    l1.setText("Add NTP Server :");
-    l1.setFont(boldFont);
-    l1.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false));
+		Composite ntpComposite = toolkit.createComposite(section, SWT.None);
+		// Create a layout of 3 columns
+		GridLayout hl = new GridLayout(3, false);
+		hl.horizontalSpacing = 10;
+		hl.verticalSpacing = 10;
+		ntpComposite.setLayout(hl);
 
-    Text txt = new Text(ntpComposite, SWT.BORDER); // SWT.BORDER
-    txt.setText("255.255.255.255");
+		Font boldFont = JFaceResources.getFontRegistry().getBold(JFaceResources.DEFAULT_FONT);
+		Label l1 = new Label(ntpComposite, SWT.NONE);
+		l1.setText("Add NTP Server :");
+		l1.setFont(boldFont);
+		l1.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false));
 
-    //		txt.setFont(FontUtil.getFontBySize(12));
+		Text txt = new Text(ntpComposite, SWT.BORDER); // SWT.BORDER
+		txt.setText("255.255.255.255");
 
-    GridData gd = new GridData(GridData.HORIZONTAL_ALIGN_FILL);
-    gd.heightHint = 15;
-    gd.widthHint = 120;
-    gd.horizontalAlignment = SWT.FILL;
-    gd.verticalAlignment = SWT.FILL;
-    txt.setLayoutData(gd);
+		// txt.setFont(FontUtil.getFontBySize(12));
 
-    Button btn = new Button(ntpComposite, SWT.PUSH);
-    btn.setText("+");
+		GridData gd = new GridData(GridData.HORIZONTAL_ALIGN_FILL);
+		gd.heightHint = 15;
+		gd.widthHint = 120;
+		gd.horizontalAlignment = SWT.FILL;
+		gd.verticalAlignment = SWT.FILL;
+		txt.setLayoutData(gd);
 
-    GridData btnGrid = new GridData(GridData.HORIZONTAL_ALIGN_FILL);
-    btn.setLayoutData(btnGrid);
+		Button btn = new Button(ntpComposite, SWT.PUSH);
+		btn.setText("+");
 
-    //		final List list = new List(ntpComposite, SWT.BORDER | SWT.MULTI | SWT.V_SCROLL);
-    List list = new List(ntpComposite, SWT.MULTI | SWT.V_SCROLL);
-    addMenuToList(list, ntpComposite);
+		GridData btnGrid = new GridData(GridData.HORIZONTAL_ALIGN_FILL);
+		btn.setLayoutData(btnGrid);
 
-    //		GridData listGrid = new GridData(GridData.HORIZONTAL_ALIGN_FILL);
-    GridData listGrid = new GridData(SWT.FILL, SWT.TOP, true, true);
-    listGrid.horizontalSpan = 2;
-    listGrid.heightHint = 100;
-    list.setLayoutData(listGrid);
+		// final List list = new List(ntpComposite, SWT.BORDER | SWT.MULTI |
+		// SWT.V_SCROLL);
+		List list = new List(ntpComposite, SWT.MULTI | SWT.V_SCROLL);
+		addMenuToList(list, ntpComposite);
 
-    addButtonListenerForList(btn, txt, list);
+		// GridData listGrid = new GridData(GridData.HORIZONTAL_ALIGN_FILL);
+		GridData listGrid = new GridData(SWT.FILL, SWT.TOP, true, true);
+		listGrid.horizontalSpan = 2;
+		listGrid.heightHint = 100;
+		list.setLayoutData(listGrid);
 
-    section.setClient(ntpComposite);
-    section.requestLayout();
+		addButtonListenerForList(btn, txt, list);
 
-    return section;
-  }
+		section.setClient(ntpComposite);
+		section.requestLayout();
 
-  private void addButtonListenerForList(Button btn, Text txt, List list) {
-    btn.addSelectionListener(
-        new SelectionAdapter() {
-          @Override
-          public void widgetSelected(SelectionEvent e) {
-            list.add("NTP Server - " + " - " + "    255.255.255.255 ");
-          }
-        });
-  }
+		return section;
+	}
 
-  private void addMenuToList(List list, Composite ntpComposite) {
-    Menu menu = new Menu(ntpComposite.getShell(), SWT.POP_UP);
-    list.setMenu(menu);
-    MenuItem item = new MenuItem(menu, SWT.PUSH);
-    item.setText("Delete");
-    item.setImage(ImageUtil.getImage("delete16.png"));
-    item.addListener(
-        SWT.Selection,
-        new Listener() {
-          public void handleEvent(Event event) {
-            list.remove(list.getSelectionIndices());
-          }
-        });
-  }
+	private void addButtonListenerForList(Button btn, Text txt, List list) {
+		btn.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				list.add("NTP Server - " + " - " + "    255.255.255.255 ");
+			}
+		});
+	}
 
-  private void setFormAction(Form form) {
-    String helpDesc = "Help message for this panel";
-    Action helpAction = ActionUtil.getHelpAction(form.getShell(), helpDesc);
-    Action nextAction =
-        ActionUtil.getAction(form.getShell(), new NextActionHandlerImpl(this, "hostDetail"));
+	private void addMenuToList(List list, Composite ntpComposite) {
+		Menu menu = new Menu(ntpComposite.getShell(), SWT.POP_UP);
+		list.setMenu(menu);
+		MenuItem item = new MenuItem(menu, SWT.PUSH);
+		item.setText("Delete");
+		item.setImage(ImageUtil.getImage("delete16.png"));
+		item.addListener(SWT.Selection, new Listener() {
+			public void handleEvent(Event event) {
+				list.remove(list.getSelectionIndices());
+			}
+		});
+	}
 
-    Action prevAction =
-        ActionUtil.getAction(form.getShell(), new PreviousActionHandler(this, "systeminformation"));
+	private void setFormAction(Form form) {
+		String helpDesc = "Help message for this panel";
+		Action helpAction = ActionUtil.getHelpAction(form.getShell(), helpDesc);
+		Action nextAction = ActionUtil.getAction(form.getShell(), new NextActionHandlerImpl(this, "hostDetail"));
 
-    form.getToolBarManager().add(prevAction);
-    form.getToolBarManager().add(nextAction);
-    form.getToolBarManager().add(helpAction);
+		Action prevAction = ActionUtil.getAction(form.getShell(), new PreviousActionHandler(this, "systeminformation"));
 
-    form.getToolBarManager().update(true);
-    form.getMenuManager().update(true);
-  }
+		form.getToolBarManager().add(prevAction);
+		form.getToolBarManager().add(nextAction);
+		form.getToolBarManager().add(helpAction);
+
+		form.getToolBarManager().update(true);
+		form.getMenuManager().update(true);
+	}
 }

@@ -35,6 +35,8 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
     
     configurer.setShowProgressIndicator(true); 
   }
+  
+  
 
   @Override
   public void postWindowOpen() {

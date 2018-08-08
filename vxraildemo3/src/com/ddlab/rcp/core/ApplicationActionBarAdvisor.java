@@ -4,18 +4,25 @@ import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.GroupMarker;
 import org.eclipse.jface.action.ICoolBarManager;
 import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.jface.action.IStatusLineManager;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
+import org.eclipse.jface.action.StatusLineContributionItem;
+import org.eclipse.jface.action.StatusLineManager;
 import org.eclipse.jface.action.ToolBarContributionItem;
 import org.eclipse.jface.action.ToolBarManager;
 import org.eclipse.swt.SWT;
 import org.eclipse.ui.IWorkbenchActionConstants;
 import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.actions.ActionFactory.IWorkbenchAction;
 import org.eclipse.ui.application.ActionBarAdvisor;
 import org.eclipse.ui.application.IActionBarConfigurer;
+import org.eclipse.ui.internal.WorkbenchWindow;
+
+import com.ddlab.rcp.actions.TipOfTheDayContributionItem;
 
 /**
  * An action bar advisor is responsible for creating, adding, and disposing of the actions added to
@@ -28,12 +35,12 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
   private IWorkbenchAction newWindowAction;
   private OpenViewAction openViewAction;
   private Action messagePopupAction;
-  
+
   private IWorkbenchAction showHelpAction; // NEW
   private IWorkbenchAction searchHelpAction; // NEW
   private IWorkbenchAction dynamicHelpAction; // NEW
-  
-//  private IWorkbenchAction introAction;
+
+  //  private IWorkbenchAction introAction;
 
   public ApplicationActionBarAdvisor(IActionBarConfigurer configurer) {
     super(configurer);
@@ -61,10 +68,10 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 
     messagePopupAction = new MessagePopupAction("Open to Chat", window);
     register(messagePopupAction);
-    
-//    introAction = ActionFactory.INTRO.create(window);
-//    register(introAction);
-    
+
+    //    introAction = ActionFactory.INTRO.create(window);
+    //    register(introAction);
+
     showHelpAction = ActionFactory.HELP_CONTENTS.create(window); // NEW
     register(showHelpAction); // NEW
 
@@ -73,7 +80,7 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 
     dynamicHelpAction = ActionFactory.DYNAMIC_HELP.create(window); // NEW
     register(dynamicHelpAction); // NEW
-    
+
   }
 
   @Override
@@ -96,9 +103,9 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 
     // Help
     helpMenu.add(aboutAction);
-    
-//    helpMenu.add(introAction);
-    
+
+    //    helpMenu.add(introAction);
+
     helpMenu.add(showHelpAction); // NEW
     helpMenu.add(searchHelpAction); // NEW
     helpMenu.add(dynamicHelpAction); // NEW
@@ -110,5 +117,14 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
     coolBar.add(new ToolBarContributionItem(toolbar, "main"));
     toolbar.add(openViewAction);
     toolbar.add(messagePopupAction);
+  }
+
+  @Override
+  protected void fillStatusLine(IStatusLineManager statusLine) {
+    StatusLineManager sm =
+        ((WorkbenchWindow) PlatformUI.getWorkbench().getActiveWorkbenchWindow())
+            .getStatusLineManager();
+    sm.add(new TipOfTheDayContributionItem("SCREEN"));
+    sm.update(true);
   }
 }
