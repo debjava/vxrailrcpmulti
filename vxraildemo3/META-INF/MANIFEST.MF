@@ -24,7 +24,8 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.ui.intro.universal,
  vxrailHelp3;bundle-version="1.0.0",
  org.eclipse.nebula.widgets.opal.notifier,
- org.eclipse.nebula.widgets.opal.tipoftheday
+ org.eclipse.nebula.widgets.opal.tipoftheday,
+ org.eclipse.update.configurator
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Automatic-Module-Name: vxraildemo3
 Bundle-ActivationPolicy: lazy

@@ -1,1 +1,2 @@
 instructions.configure=org.eclipse.equinox.p2.touchpoint.natives.remove(path:${installFolder}/eclipsec.exe);
+instructions.install=mkdir(path:${installFolder}/dropins);mkdir(path:${installFolder}/hatighodabagha)
