@@ -187,5 +187,30 @@
             productId="vxraildemo3.product">
       </introProductBinding>
     </extension>
+    
+    
+    
+    
+    
+    
+    
+    
+    <extension
+         point="org.eclipse.ui.actionSets">
+      <actionSet
+            label="List of apps toolbar"
+         visible="true"
+            id="PerspectivesViewsToolbar.actionSet">
+         <action
+               class="com.ddlab.rcp.actions.ShowPerspectivesPulldownMenuAction"
+               icon="icons/apps16.png"
+               id="PerspectivesViewsToolbar.PerspectivesPulldownAction"
+               label="Show Perspectives"
+               style="pulldown"
+               toolbarPath="PerspectivesViewsToolbar/additions"
+               tooltip="Show list of apps">
+         </action>
+      </actionSet>
+   </extension>
 
 </plugin>

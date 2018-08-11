@@ -9,30 +9,49 @@ import org.eclipse.ui.PlatformUI;
 /** This class controls all aspects of the application's execution */
 public class VxRailApplication implements IApplication {
 
-  @Override
-  public Object start(IApplicationContext context) {
-    Display display = PlatformUI.createDisplay();
-    try {
-      int returnCode = PlatformUI.createAndRunWorkbench(display, new ApplicationWorkbenchAdvisor());
-      if (returnCode == PlatformUI.RETURN_RESTART) {
-        return IApplication.EXIT_RESTART;
-      }
-      return IApplication.EXIT_OK;
-    } finally {
-      display.dispose();
-    }
-  }
+	public Object start(IApplicationContext context) {
+		Integer returnValue = 0;
+		Display display = PlatformUI.createDisplay();
+		try {
+			int returnCode = PlatformUI.createAndRunWorkbench(display, new ApplicationWorkbenchAdvisor());
+			if (returnCode == PlatformUI.RETURN_RESTART) {
+				returnValue = IApplication.EXIT_RESTART;
+			}
+			returnValue = IApplication.EXIT_OK;
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			display.dispose();
+		}
+		return returnValue;
+	}
+	
 
-  @Override
-  public void stop() {
-    if (!PlatformUI.isWorkbenchRunning()) return;
-    final IWorkbench workbench = PlatformUI.getWorkbench();
-    final Display display = workbench.getDisplay();
-    display.syncExec(
-        new Runnable() {
-          public void run() {
-            if (!display.isDisposed()) workbench.close();
-          }
-        });
-  }
+//	@Override
+//	public Object start(IApplicationContext context) {
+//		Display display = PlatformUI.createDisplay();
+//		try {
+//			int returnCode = PlatformUI.createAndRunWorkbench(display, new ApplicationWorkbenchAdvisor());
+//			if (returnCode == PlatformUI.RETURN_RESTART) {
+//				return IApplication.EXIT_RESTART;
+//			}
+//			return IApplication.EXIT_OK;
+//		} finally {
+//			display.dispose();
+//		}
+//	}
+
+	@Override
+	public void stop() {
+		if (!PlatformUI.isWorkbenchRunning())
+			return;
+		final IWorkbench workbench = PlatformUI.getWorkbench();
+		final Display display = workbench.getDisplay();
+		display.syncExec(new Runnable() {
+			public void run() {
+				if (!display.isDisposed())
+					workbench.close();
+			}
+		});
+	}
 }
