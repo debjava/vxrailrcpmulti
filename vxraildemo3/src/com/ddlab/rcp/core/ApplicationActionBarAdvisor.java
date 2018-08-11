@@ -25,106 +25,113 @@ import org.eclipse.ui.internal.WorkbenchWindow;
 import com.ddlab.rcp.actions.TipOfTheDayContributionItem;
 
 /**
- * An action bar advisor is responsible for creating, adding, and disposing of the actions added to
- * a workbench window. Each window will be populated with new actions.
+ * An action bar advisor is responsible for creating, adding, and disposing of
+ * the actions added to a workbench window. Each window will be populated with
+ * new actions.
  */
 public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 
-  private IWorkbenchAction exitAction;
-  private IWorkbenchAction aboutAction;
-  private IWorkbenchAction newWindowAction;
-  private OpenViewAction openViewAction;
-  private Action messagePopupAction;
+	private IWorkbenchAction exitAction;
+	private IWorkbenchAction aboutAction;
+	private IWorkbenchAction newWindowAction;
+	private OpenViewAction openViewAction;
+	private Action messagePopupAction;
 
-  private IWorkbenchAction showHelpAction; // NEW
-  private IWorkbenchAction searchHelpAction; // NEW
-  private IWorkbenchAction dynamicHelpAction; // NEW
+	private IWorkbenchAction showHelpAction; // NEW
+	private IWorkbenchAction searchHelpAction; // NEW
+	private IWorkbenchAction dynamicHelpAction; // NEW
 
-  //  private IWorkbenchAction introAction;
+	// For Intro
+	private IWorkbenchAction introAction = null;
 
-  public ApplicationActionBarAdvisor(IActionBarConfigurer configurer) {
-    super(configurer);
-  }
+	// private IWorkbenchAction introAction;
 
-  @Override
-  protected void makeActions(final IWorkbenchWindow window) {
-    // Creates the actions and registers them.
-    // Registering is needed to ensure that key bindings work.
-    // The corresponding commands keybindings are defined in the plugin.xml file.
-    // Registering also provides automatic disposal of the actions when
-    // the window is closed.
+	public ApplicationActionBarAdvisor(IActionBarConfigurer configurer) {
+		super(configurer);
+	}
 
-    exitAction = ActionFactory.QUIT.create(window);
-    register(exitAction);
+	@Override
+	protected void makeActions(final IWorkbenchWindow window) {
+		// Creates the actions and registers them.
+		// Registering is needed to ensure that key bindings work.
+		// The corresponding commands keybindings are defined in the plugin.xml file.
+		// Registering also provides automatic disposal of the actions when
+		// the window is closed.
 
-    aboutAction = ActionFactory.ABOUT.create(window);
-    register(aboutAction);
+		exitAction = ActionFactory.QUIT.create(window);
+		register(exitAction);
 
-    newWindowAction = ActionFactory.OPEN_NEW_WINDOW.create(window);
-    register(newWindowAction);
+		aboutAction = ActionFactory.ABOUT.create(window);
+		register(aboutAction);
 
-    openViewAction = new OpenViewAction(window, "Open Another Message View", View.ID);
-    register(openViewAction);
+		newWindowAction = ActionFactory.OPEN_NEW_WINDOW.create(window);
+		register(newWindowAction);
 
-    messagePopupAction = new MessagePopupAction("Open to Chat", window);
-    register(messagePopupAction);
+		openViewAction = new OpenViewAction(window, "Open Another Message View", View.ID);
+		register(openViewAction);
 
-    //    introAction = ActionFactory.INTRO.create(window);
-    //    register(introAction);
+		messagePopupAction = new MessagePopupAction("Open to Chat", window);
+		register(messagePopupAction);
 
-    showHelpAction = ActionFactory.HELP_CONTENTS.create(window); // NEW
-    register(showHelpAction); // NEW
+		// introAction = ActionFactory.INTRO.create(window);
+		// register(introAction);
 
-    searchHelpAction = ActionFactory.HELP_SEARCH.create(window); // NEW
-    register(searchHelpAction); // NEW
+		showHelpAction = ActionFactory.HELP_CONTENTS.create(window); // NEW
+		register(showHelpAction); // NEW
 
-    dynamicHelpAction = ActionFactory.DYNAMIC_HELP.create(window); // NEW
-    register(dynamicHelpAction); // NEW
+		searchHelpAction = ActionFactory.HELP_SEARCH.create(window); // NEW
+		register(searchHelpAction); // NEW
 
-  }
+		dynamicHelpAction = ActionFactory.DYNAMIC_HELP.create(window); // NEW
+		register(dynamicHelpAction); // NEW
 
-  @Override
-  protected void fillMenuBar(IMenuManager menuBar) {
-    MenuManager fileMenu = new MenuManager("&File", IWorkbenchActionConstants.M_FILE);
-    MenuManager helpMenu = new MenuManager("&Help", IWorkbenchActionConstants.M_HELP);
+		introAction = ActionFactory.INTRO.create(window);
+		register(introAction);
 
-    menuBar.add(fileMenu);
-    // Add a group marker indicating where action set menus will appear.
-    menuBar.add(new GroupMarker(IWorkbenchActionConstants.MB_ADDITIONS));
-    menuBar.add(helpMenu);
+	}
 
-    // File
-    fileMenu.add(newWindowAction);
-    fileMenu.add(new Separator());
-    fileMenu.add(messagePopupAction);
-    fileMenu.add(openViewAction);
-    fileMenu.add(new Separator());
-    fileMenu.add(exitAction);
+	@Override
+	protected void fillMenuBar(IMenuManager menuBar) {
+		MenuManager fileMenu = new MenuManager("&File", IWorkbenchActionConstants.M_FILE);
+		MenuManager helpMenu = new MenuManager("&Help", IWorkbenchActionConstants.M_HELP);
 
-    // Help
-    helpMenu.add(aboutAction);
+		menuBar.add(fileMenu);
+		// Add a group marker indicating where action set menus will appear.
+		menuBar.add(new GroupMarker(IWorkbenchActionConstants.MB_ADDITIONS));
+		menuBar.add(helpMenu);
 
-    //    helpMenu.add(introAction);
+		// File
+		fileMenu.add(newWindowAction);
+		fileMenu.add(new Separator());
+		fileMenu.add(messagePopupAction);
+		fileMenu.add(openViewAction);
+		fileMenu.add(new Separator());
+		fileMenu.add(exitAction);
 
-    helpMenu.add(showHelpAction); // NEW
-    helpMenu.add(searchHelpAction); // NEW
-    helpMenu.add(dynamicHelpAction); // NEW
-  }
+		// Help
+		helpMenu.add(aboutAction);
 
-  @Override
-  protected void fillCoolBar(ICoolBarManager coolBar) {
-    IToolBarManager toolbar = new ToolBarManager(SWT.FLAT | SWT.RIGHT);
-    coolBar.add(new ToolBarContributionItem(toolbar, "main"));
-    toolbar.add(openViewAction);
-    toolbar.add(messagePopupAction);
-  }
+		// helpMenu.add(introAction);
 
-  @Override
-  protected void fillStatusLine(IStatusLineManager statusLine) {
-    StatusLineManager sm =
-        ((WorkbenchWindow) PlatformUI.getWorkbench().getActiveWorkbenchWindow())
-            .getStatusLineManager();
-    sm.add(new TipOfTheDayContributionItem("SCREEN"));
-    sm.update(true);
-  }
+		helpMenu.add(showHelpAction); // NEW
+		helpMenu.add(searchHelpAction); // NEW
+		helpMenu.add(dynamicHelpAction); // NEW
+		helpMenu.add(introAction);
+	}
+
+	@Override
+	protected void fillCoolBar(ICoolBarManager coolBar) {
+		IToolBarManager toolbar = new ToolBarManager(SWT.FLAT | SWT.RIGHT);
+		coolBar.add(new ToolBarContributionItem(toolbar, "main"));
+		toolbar.add(openViewAction);
+		toolbar.add(messagePopupAction);
+	}
+
+	@Override
+	protected void fillStatusLine(IStatusLineManager statusLine) {
+		StatusLineManager sm = ((WorkbenchWindow) PlatformUI.getWorkbench().getActiveWorkbenchWindow())
+				.getStatusLineManager();
+		sm.add(new TipOfTheDayContributionItem("SCREEN"));
+		sm.update(true);
+	}
 }
