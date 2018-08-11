@@ -35,8 +35,8 @@ public class TipOfTheDayContributionItem extends ContributionItem {
           @Override
           public void widgetSelected(SelectionEvent e) {
             Shell shell = parent.getShell();
-            Image tipImg = Activator.getImageDescriptor("icons/tip16.png").createImage();
-            shell.setImage(tipImg);
+//            Image tipImg = Activator.getImageDescriptor("icons/tip16.png").createImage();
+//            shell.setImage(tipImg);
             tip.open(shell);
           }
         });
