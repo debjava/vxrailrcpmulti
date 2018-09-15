@@ -16,6 +16,9 @@ public class VxRailApplication implements IApplication {
 			int returnCode = PlatformUI.createAndRunWorkbench(display, new ApplicationWorkbenchAdvisor());
 			if (returnCode == PlatformUI.RETURN_RESTART) {
 				returnValue = IApplication.EXIT_RESTART;
+				
+				//https://stackoverflow.com/questions/24890851/eclipse-restart-using-platformui-getworkbench-restart-is-not-restarting-th#
+				return returnValue;//Only for restart
 			}
 			returnValue = IApplication.EXIT_OK;
 		} catch (Exception e) {

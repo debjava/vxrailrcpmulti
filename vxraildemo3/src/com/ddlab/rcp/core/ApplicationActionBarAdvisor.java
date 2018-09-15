@@ -43,8 +43,10 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 
 	// For Intro
 	private IWorkbenchAction introAction = null;
+	
+	//For Restart
+	private Action restartAction = null;
 
-	// private IWorkbenchAction introAction;
 
 	public ApplicationActionBarAdvisor(IActionBarConfigurer configurer) {
 		super(configurer);
@@ -52,14 +54,12 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 
 	@Override
 	protected void makeActions(final IWorkbenchWindow window) {
-		// Creates the actions and registers them.
-		// Registering is needed to ensure that key bindings work.
-		// The corresponding commands keybindings are defined in the plugin.xml file.
-		// Registering also provides automatic disposal of the actions when
-		// the window is closed.
 
 		exitAction = ActionFactory.QUIT.create(window);
 		register(exitAction);
+		
+		restartAction = new RestartAction("Restart",window);
+		register(restartAction);
 
 		aboutAction = ActionFactory.ABOUT.create(window);
 		register(aboutAction);
@@ -106,6 +106,7 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 		fileMenu.add(messagePopupAction);
 		fileMenu.add(openViewAction);
 		fileMenu.add(new Separator());
+		fileMenu.add(restartAction);
 		fileMenu.add(exitAction);
 
 		// Help

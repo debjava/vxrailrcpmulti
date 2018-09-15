@@ -89,6 +89,12 @@
             id="vxraildemo3.openMessage"
             categoryId="vxraildemo3.category">
       </command>
+      <command
+            description="Restart platform"
+            name="Restart"
+            id="vxraildemo3.restart"
+            categoryId="vxraildemo3.category">
+      </command>
    </extension>
    <extension
          point="org.eclipse.ui.bindings">
@@ -105,6 +111,11 @@
       <key
             commandId="org.eclipse.ui.file.exit"
             sequence="CTRL+SHIFT+Q"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration">
+      </key>
+      <key
+            commandId="vxraildemo3.restart"
+            sequence="CTRL+SHIFT+R"
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration">
       </key>
    </extension>
